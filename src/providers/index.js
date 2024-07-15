@@ -32,12 +32,24 @@ class HttpProvider {
             headers['X-API-Key'] = this.options.apiKey;
         }
 
+        if (this.options?.verbose) {
+            console.log(`TONWEB: >>> [${this.host}] ` + JSON.stringify(request))
+        }
+
         return fetch(apiUrl, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify(request)
         })
-            .then((response) => response.json())
+            .then(async (response) => {
+                const result = await response.json()
+
+                if (this.options?.verbose) {
+                    console.log(`TONWEB: <<< ` + JSON.stringify(result))
+                }
+
+                return result
+            })
             .then(({ result, error }) => result || Promise.reject(error))
     }
 

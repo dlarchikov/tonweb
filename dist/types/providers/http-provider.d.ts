@@ -1,5 +1,6 @@
 export interface HttpProviderOptions {
     apiKey?: string;
+    verbose?: boolean;
 }
 export interface EstimateFeeBody {
     /**
